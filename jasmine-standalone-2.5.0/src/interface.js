@@ -9,8 +9,14 @@ function displayData(city) {
   var url = 'http://api.openweathermap.org/data/2.5/weather?q=';
   var units = '&units=metric';
   var apiKey = '&APPID=558cadeaf010d77fe5755f6f362b01bf';
+  var source = "http://openweathermap.org/img/w/";
+  var suffix = ".png";
+  // var icon =
   $.get(url + city + units + apiKey, function(data) {
     $('#openweather').text(data.main.temp);
+    var icon = (data.weather[0].icon);
+    console.log(icon);
+    $('#weather').attr("src", (source + icon + suffix));
   });
   $('#currentCity').text(city);
 }
