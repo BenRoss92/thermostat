@@ -18,7 +18,7 @@ Thermostat.prototype = {
 
   decreaseTemperature: function() {
     if(this.temperature <= this._MINIMUM) {
-      throw new Error('cannot decrease further');
+      throw new Error('temperature cannot go below 10');
     }
     this.temperature -= 1;
   },

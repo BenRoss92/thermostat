@@ -21,10 +21,10 @@ beforeEach(function() {
   });
 
   it("won't let temperature go below 10", function() {
-    for(var i = 20; i >= thermostat._MINIMUM; i--) {
+    for(var i = 19; i >= thermostat._MINIMUM; i--) {
       thermostat.decreaseTemperature();
     }
-    expect(function() { thermostat.decreaseTemperature(); }).toThrowError('cannot decrease further');
+    expect(function() { thermostat.decreaseTemperature(); }).toThrowError('temperature cannot go below 10');
   });
 
   it('in powersave mode sets max temperature to 25', function(){
@@ -42,15 +42,15 @@ beforeEach(function() {
     expect(thermostat.checkTemperature()).toEqual(20);
   });
 
-  it('energy colour is green when temperature is less than 18', function() {
+  it('energy is low when temperature is less than 18', function() {
     for(var i = 20; i >= 18; i--) {
       thermostat.decreaseTemperature();
     }
-    expect(thermostat.energyChecker()).toEqual('green');
+    expect(thermostat.energyChecker()).toEqual('low');
   });
 
-  it('energy colour is yellow when temperature is between 18 and 24', function() {
-    expect(thermostat.energyChecker()).toEqual('yellow');
+  it('energy is medium when temperature is between 18 and 24', function() {
+    expect(thermostat.energyChecker()).toEqual('medium');
   });
 
 describe('powersave mode is on', function() {
@@ -72,11 +72,11 @@ describe('powersave mode is on', function() {
       thermostat.powerSaveOff();
     });
 
-    it('energy colour is red when temperature is 25 or more', function() {
+    it('energy is high when temperature is 25 or more', function() {
       for(var i = 20; i < 25; i++) {
         thermostat.increaseTemperature();
       }
-      expect(thermostat.energyChecker()).toEqual('red');
+      expect(thermostat.energyChecker()).toEqual('high');
     });
 
   });
